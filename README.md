@@ -1,5 +1,260 @@
 # User Management API
 
+[🇺🇸 English](#english) | [🇧🇷 Português](#português)
+
+---
+
+## English
+
+A Java project developed with Quarkus following Hexagonal Architecture principles (Ports and Adapters), focused on user management with JWT authentication.
+
+## 🏗️ Architecture
+
+This project implements **Hexagonal Architecture** in a simplified way, ensuring clear separation between business logic and external dependencies.
+
+### Architecture Structure
+
+```
+Domain (Core) ← Application → Adapters
+     ↑              ↑           ↑
+   Models      Use Cases    REST/GraphQL
+   Ports       Services     Persistence
+```
+
+### Module Organization
+
+- **Domain**: Application core with business rules
+- **Application**: Use case orchestration
+- **Adapters**: External world integrations (APIs, DB, etc.)
+- **Infrastructure**: Technical configurations and utilities
+
+## 🚀 Technologies
+
+- **Java** - Main programming language
+- **Quarkus** - Reactive and cloud-native framework
+- **JWT** - Authentication and authorization
+- **GraphQL** - API for flexible queries
+- **REST** - Traditional APIs
+- **Maven** - Dependency management
+- **Docker** - Containerization
+
+## 📦 Features
+
+### Main Modules
+
+#### 🔐 Auth
+- User authentication
+- JWT token generation and validation
+- Access control
+
+#### 👤 User
+- User creation
+- Profile management
+- Queries via REST and GraphQL
+
+#### 📞 Contact
+- User contact management
+- Different contact types
+- Validation states
+
+#### 🔑 Password
+- Password encryption
+- Policy validation
+- Password recovery
+
+#### 🛠️ Shared
+- Global exception handling
+- Shared utilities
+- Common validators
+
+## 🏃‍♂️ How to Run
+
+### Prerequisites
+- Java 11+
+- Maven 3.8+
+- Docker (optional)
+
+### Development Mode
+```bash
+# Run in dev mode with hot-reload
+./mvnw compile quarkus:dev
+```
+
+### Native Build
+```bash
+# Compile to native binary
+./mvnw package -Pnative
+```
+
+### Docker
+
+#### JVM Mode
+```bash
+docker build -f src/main/docker/Dockerfile.jvm -t user-management-api .
+docker run -i --rm -p 8080:8080 user-management-api
+```
+
+#### Native Mode
+```bash
+docker build -f src/main/docker/Dockerfile.native -t user-management-api-native .
+docker run -i --rm -p 8080:8080 user-management-api-native
+```
+
+#### Native Micro Mode (GraalVM)
+```bash
+docker build -f src/main/docker/Dockerfile.native-micro -t user-management-api-micro .
+docker run -i --rm -p 8080:8080 user-management-api-micro
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+
+```properties
+# Application settings
+quarkus.http.port=8080
+quarkus.log.level=INFO
+
+# JWT Configuration
+jwt.private.key=privateKey.pem
+jwt.public.key=publicKey.pem
+
+# Database (configure as needed)
+quarkus.datasource.url=jdbc:postgresql://localhost:5432/userdb
+quarkus.datasource.username=user
+quarkus.datasource.password=password
+```
+
+## 📚 API Endpoints
+
+### REST Endpoints
+
+#### Authentication
+```http
+POST /auth/signin
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+
+#### Users
+```http
+# Create user
+POST /users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123",
+  "gender": "MALE"
+}
+
+# Get user
+GET /users/{id}
+Authorization: Bearer {token}
+```
+
+### GraphQL Endpoint
+```http
+POST /graphql
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+  "query": "{ users { id name email } }"
+}
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+./mvnw test
+
+# Run tests with coverage
+./mvnw test jacoco:report
+```
+
+## 📁 Directory Structure
+
+```
+src/main/java/
+├── features/
+│   ├── auth/           # Authentication module
+│   ├── user/           # User module
+│   ├── contact/        # Contact module
+│   └── password/       # Password module
+└── shared/             # Shared components
+
+# Each feature follows hexagonal structure:
+feature/
+├── domain/             # Business rules
+│   ├── models/         # Domain entities
+│   ├── useCase/        # Use case interfaces
+│   ├── repository/     # Repository interfaces
+│   └── services/       # Service interfaces
+├── application/        # Use case implementations
+│   ├── useCase/        # Concrete use cases
+│   └── services/       # Application services
+├── adapters/           # Adapters
+│   ├── in/             # Input adapters
+│   │   ├── http/       # REST Controllers
+│   │   └── graphql/    # GraphQL Resources
+│   └── out/            # Output adapters
+│       ├── entities/   # Persistence entities
+│       ├── mappers/    # Mappers
+│       └── persistence/# Concrete repositories
+└── infrastructure/     # Technical configurations
+```
+
+## 🛡️ Security
+
+- **JWT**: RSA signed tokens
+- **Validation**: Custom input validators
+- **Exceptions**: Centralized error handling
+- **CORS**: Production environment configuration
+
+## 🚀 Deploy
+
+### Production Configuration
+
+1. **Configure environment variables**
+2. **Generate production JWT keys**
+3. **Configure database**
+4. **Set up logging and monitoring**
+
+### Performance
+
+- **Native Build**: Startup time < 50ms
+- **Memory Footprint**: < 100MB in native mode
+- **Hot Reload**: Agile development with Quarkus Dev Mode
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+## 📞 Support
+
+For questions and support:
+- Open an issue on GitHub
+- Contact the development team
+
+---
+
+## Português
+
 Um projeto Java desenvolvido com Quarkus seguindo os princípios da Arquitetura Hexagonal (Ports and Adapters), focado na gestão de usuários com autenticação JWT.
 
 ## 🏗️ Arquitetura
@@ -79,172 +334,3 @@ Domain (Core) ← Application → Adapters
 # Compilar para binário nativo
 ./mvnw package -Pnative
 ```
-
-### Docker
-
-#### JVM Mode
-```bash
-docker build -f src/main/docker/Dockerfile.jvm -t user-management-api .
-docker run -i --rm -p 8080:8080 user-management-api
-```
-
-#### Native Mode
-```bash
-docker build -f src/main/docker/Dockerfile.native -t user-management-api-native .
-docker run -i --rm -p 8080:8080 user-management-api-native
-```
-
-#### Native Micro Mode (GraalVM)
-```bash
-docker build -f src/main/docker/Dockerfile.native-micro -t user-management-api-micro .
-docker run -i --rm -p 8080:8080 user-management-api-micro
-```
-
-## 🔧 Configuração
-
-### Variáveis de Ambiente
-
-```properties
-# Configurações da aplicação
-quarkus.http.port=8080
-quarkus.log.level=INFO
-
-# JWT Configuration
-jwt.private.key=privateKey.pem
-jwt.public.key=publicKey.pem
-
-# Database (configurar conforme necessário)
-quarkus.datasource.url=jdbc:postgresql://localhost:5432/userdb
-quarkus.datasource.username=user
-quarkus.datasource.password=password
-```
-
-## 📚 API Endpoints
-
-### REST Endpoints
-
-#### Autenticação
-```http
-POST /auth/signin
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "senha123"
-}
-```
-
-#### Usuários
-```http
-# Criar usuário
-POST /users
-Content-Type: application/json
-
-{
-  "name": "João Silva",
-  "email": "joao@example.com",
-  "password": "senha123",
-  "gender": "MALE"
-}
-
-# Buscar usuário
-GET /users/{id}
-Authorization: Bearer {token}
-```
-
-### GraphQL Endpoint
-```http
-POST /graphql
-Content-Type: application/json
-Authorization: Bearer {token}
-
-{
-  "query": "{ users { id name email } }"
-}
-```
-
-## 🧪 Testes
-
-```bash
-# Executar todos os testes
-./mvnw test
-
-# Executar testes com coverage
-./mvnw test jacoco:report
-```
-
-## 📁 Estrutura de Diretórios
-
-```
-src/main/java/
-├── features/
-│   ├── auth/           # Módulo de autenticação
-│   ├── user/           # Módulo de usuários
-│   ├── contact/        # Módulo de contatos
-│   └── password/       # Módulo de senhas
-└── shared/             # Componentes compartilhados
-
-# Cada feature segue a estrutura hexagonal:
-feature/
-├── domain/             # Regras de negócio
-│   ├── models/         # Entidades do domínio
-│   ├── useCase/        # Interfaces dos casos de uso
-│   ├── repository/     # Interfaces de repositório
-│   └── services/       # Interfaces de serviços
-├── application/        # Implementação dos casos de uso
-│   ├── useCase/        # Casos de uso concretos
-│   └── services/       # Serviços de aplicação
-├── adapters/           # Adaptadores
-│   ├── in/             # Adaptadores de entrada
-│   │   ├── http/       # Controllers REST
-│   │   └── graphql/    # Resources GraphQL
-│   └── out/            # Adaptadores de saída
-│       ├── entities/   # Entidades de persistência
-│       ├── mappers/    # Mapeadores
-│       └── persistence/# Repositórios concretos
-└── infrastructure/     # Configurações técnicas
-```
-
-## 🛡️ Segurança
-
-- **JWT**: Tokens com assinatura RSA
-- **Validação**: Validadores personalizados para entrada
-- **Exceções**: Tratamento centralizado de erros
-- **CORS**: Configuração para ambientes de produção
-
-## 🚀 Deploy
-
-### Configuração de Produção
-
-1. **Configurar variáveis de ambiente**
-2. **Gerar chaves JWT específicas**
-3. **Configurar banco de dados**
-4. **Configurar logs e monitoramento**
-
-### Performance
-
-- **Native Build**: Tempo de inicialização < 50ms
-- **Memory Footprint**: < 100MB em modo nativo
-- **Hot Reload**: Desenvolvimento ágil com Quarkus Dev Mode
-
-## 🤝 Contribuição
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
-## 📞 Suporte
-
-Para dúvidas e suporte:
-- Abra uma issue no GitHub
-- Entre em contato com a equipe de desenvolvimento
-
----
-
-**Desenvolvido com ❤️ usando Arquitetura Hexagonal e Quarkus**
