@@ -4,8 +4,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import features.user.domain.models.UserModel;
-import features.user.domain.repository.UserRepository;
-import features.user.domain.services.UserService;
+import features.user.domain.ports.UserRepository;
+import features.user.domain.ports.UserService;
 import io.quarkus.security.UnauthorizedException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

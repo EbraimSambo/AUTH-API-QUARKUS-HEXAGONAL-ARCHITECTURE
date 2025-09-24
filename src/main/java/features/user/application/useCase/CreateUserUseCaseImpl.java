@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.jboss.logging.Logger;
 
 import features.user.domain.models.UserModel;
-import features.user.domain.records.UserCreateData;
-import features.user.domain.repository.UserRepository;
-import features.user.domain.useCase.CreateUserUseCase;
+import features.user.domain.models.records.UserCreateData;
+import features.user.domain.ports.CreateUserUseCase;
+import features.user.domain.ports.UserRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import shared.domain.exceptions.ConflictException;

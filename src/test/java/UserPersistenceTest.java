@@ -1,11 +1,11 @@
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
-import features.contact.domain.enums.ContactType;
-import features.user.adapters.out.persistence.UserPersistence;
-import features.user.domain.enums.Gender;
+import features.contact.domain.models.enums.ContactType;
 import features.user.domain.models.UserModel;
-import features.user.domain.records.UserCreateData;
+import features.user.domain.models.enums.Gender;
+import features.user.domain.models.records.UserCreateData;
+import features.user.infrastructure.persistence.UserPersistence;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

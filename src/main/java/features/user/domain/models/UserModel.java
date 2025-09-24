@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import features.contact.domain.models.UserContactModel;
 import features.password.domain.models.UserPasswordModel;
-import features.user.domain.enums.Gender;
+import features.user.domain.models.enums.Gender;
 
 public class UserModel {
     private long id;

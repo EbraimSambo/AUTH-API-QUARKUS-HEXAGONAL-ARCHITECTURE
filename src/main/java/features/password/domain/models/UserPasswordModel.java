@@ -2,7 +2,7 @@ package features.password.domain.models;
 
 import java.time.LocalDateTime;
 
-import features.contact.domain.enums.TypeState;
+import features.contact.domain.models.enums.TypeState;
 import features.user.domain.models.UserModel;
 
 public class UserPasswordModel {
